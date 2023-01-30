@@ -1,0 +1,44 @@
+"""
+
+n0-venv
+rle enoder in python
+provides rle sizes from 8 bit to 16 bit
+
+"""
+import struct
+
+def rle(b_str : bytes, max_bits : int):
+
+    buffer = b""
+    last_char = b""
+
+    count = 0 
+    
+    bit_sig = max_bits == 8 and "B" or "H"
+    max_count = max_bits == 8 and (2**8)-1 or (2**16)-1
+
+    for i in range(b_str.__len__()):
+    
+       
+        char = b_str[i:i+1]
+
+        if not last_char: last_char = char; count +=1; continue
+
+        if not char == last_char or count >= max_count: 
+
+
+            buffer += last_char + struct.pack(bit_sig,count)
+
+            count = 0
+
+        # char is the same!
+
+        last_char = char
+
+        count +=1
+
+    #print(last_char,count)
+    buffer += last_char + struct.pack(bit_sig,count)
+    return buffer
+
+
