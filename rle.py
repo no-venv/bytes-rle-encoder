@@ -7,7 +7,7 @@ provides rle sizes from 8 bit to 16 bit
 """
 import struct
 
-def rle(b_str : bytes, max_bits ):
+def rle(b_str : bytes, max_bits=8 ):
     
     """
     
@@ -21,7 +21,6 @@ def rle(b_str : bytes, max_bits ):
 
     count = 0 
 
-    max_bits = not max_bits and 8 or max_bits
     bit_sig = max_bits == 8 and "B" or "H"
     max_count = max_bits == 8 and (2**8)-1 or (2**16)-1
 
